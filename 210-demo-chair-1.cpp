@@ -2,7 +2,7 @@
 #include <iomanip>
 
 using namespace std;
-const int SIZE = 3;
+const int SIZE = 3, MIN = 10000, MAX = 99999, MIN_LEGS = 3, LEGS_RANGE = 2;
 
 class Chair {
 private:
@@ -12,15 +12,16 @@ public:
     // constructors
     Chair() {
         prices = new double[SIZE];
-        legs = 0;
-        for (int i = 0; i < SIZE; i++)
-            prices[i] = 0;
+        legs = rand() % LEGS_RANGE + MIN_LEGS;
+        for (int i = 0; i < SIZE; i++){
+            prices[i] = (rand() % (MAX - MIN + 1) + MIN) / 100.0;
+        }
     }
-    Chair(int l) {
+    Chair(int l, double* p) {
         prices = new double[SIZE];
         legs = l;
         for (int i = 0; i < SIZE; i++)
-            prices[i] = 0;
+            prices[i] = p[i];
     }
 
     // setters and getters
