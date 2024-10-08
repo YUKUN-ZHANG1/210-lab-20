@@ -9,19 +9,34 @@ private:
     int legs;
     double * prices;
 public:
-    // constructors
-    Chair() {
+    // Default constructor
+    // Randomly selects 3 or 4 legs and generates random prices between $100.00 and $999.99
+        Chair() {
         prices = new double[SIZE];
         legs = rand() % LEGS_RANGE + MIN_LEGS;
         for (int i = 0; i < SIZE; i++){
             prices[i] = (rand() % (MAX - MIN + 1) + MIN) / 100.0;
         }
     }
-    Chair(int l, double* p) {
+    // Parameterized constructor
+    // Takes the number of legs and initializes prices to 0
+    Chair(int l) {
+        prices = new double[SIZE];
+        legs = l;
+        for (int i = 0; i < SIZE; i++)
+            prices[i] = 0;
+    }
+    // Parameterized constructor
+    // Takes the number of legs and an array of prices
+    Chair(int l, double p[SIZE]) {
         prices = new double[SIZE];
         legs = l;
         for (int i = 0; i < SIZE; i++)
             prices[i] = p[i];
+    }
+    // Destructor
+    ~Chair(){
+        delete[] prices;
     }
 
     // setters and getters
@@ -54,27 +69,28 @@ int main() {
 
     //creating pointer to first chair object
     Chair *chairPtr = new Chair;
-    chairPtr->setLegs(4);
-    chairPtr->setPrices(121.21, 232.32, 414.14);
     chairPtr->print();
 
-    //creating dynamic chair object with constructor
+    //creating dynamic chair object with single-parameter constructor
     Chair *livingChair = new Chair(3);
-    livingChair->setPrices(525.25, 434.34, 252.52);
+    livingChair->print();
+    delete livingChair;
+    livingChair = nullptr;
+
+    //creating dynamic chair object with double-parameter constructor
+    double p[SIZE];
+    for (int i = 0; i < SIZE; i++)
+        p[i] = (rand() % (MAX - MIN + 1) + MIN) / 100.0;
+    livingChair = new Chair(3, p);
     livingChair->print();
     delete livingChair;
     livingChair = nullptr;
 
     //creating dynamic array of chair objects
     Chair *collection = new Chair[SIZE];
-    collection[0].setLegs(4);
-    collection[0].setPrices(441.41, 552.52, 663.63);
-    collection[1].setLegs(4);
-    collection[1].setPrices(484.84, 959.59, 868.68);
-    collection[2].setLegs(4);
-    collection[2].setPrices(626.26, 515.15, 757.57);
     for (int i = 0; i < SIZE; i++)
         collection[i].print();
     
+    delete[] collection;
     return 0;
 }
