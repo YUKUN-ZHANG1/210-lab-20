@@ -1,3 +1,6 @@
+// COMSC-210 | Lab 20: Chair Maker 3000 | Yukun Zhang
+// IDE used: Visual Studio Code
+
 #include <iostream>
 #include <iomanip>
 
